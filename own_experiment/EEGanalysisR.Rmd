@@ -1,0 +1,45 @@
+---
+title: "EEG analysis"
+author: "WIBE"
+date: "5/6/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load(tidyverse, lme4)
+```
+
+```{r}
+df <- read.csv("/Users/WIBE/Desktop/cogsci/Neuro/studybuddies_neuroScience/own_experiment/incorr2_data.csv")
+```
+
+
+```{r}
+names(df)
+
+df <- df %>% 
+  rename(trial = level_0, channel = level_2, signal = incorr2_data, condition = level_1)
+```
+
+```{r}
+#making the model
+m1 = lmer(condition ~ signal + (1|trial), data=df)
+
+summary(m1)
+
+round(m1@beta, 2) # Only showing coefficients of model
+#comments: 
+
+```
+
+
+
+
+
+
+
+
+
+
+
